@@ -17,3 +17,13 @@ export const createClient = async (req, res) => {
   );
   return res.json(rows[0]);
 };
+
+
+export const createsales = async (req, res) => {
+  const data = req.body;
+  const { rows } = await pool.query(
+    "INSERT INTO ventas (id_cliente,id_producto, cantidad) VALUES ($1, $2, $3) RETURNING *",
+    [data.id_cliente, data.id_producto, data.cantidad]
+  );
+  return res.json(rows[0]);
+}
